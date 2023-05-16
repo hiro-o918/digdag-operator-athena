@@ -12,7 +12,7 @@ case class S3(aws: Aws)
 {
     def withS3[A](f: AmazonS3 => A): A =
     {
-        val s3 = aws.buildService(AmazonS3ClientBuilder.standard())
+        val s3 = aws.buildService(AmazonS3ClientBuilder.standard().withForceGlobalBucketAccessEnabled(true))
         try f(s3)
         finally s3.shutdown()
     }
